@@ -1,0 +1,8 @@
+{
+  "name": "Dynamic SEO Child Pages",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt":                "*",
+    "grunt-wp-i18n":        "^0.5.3"
+  }
+}

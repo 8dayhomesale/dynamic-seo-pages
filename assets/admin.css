@@ -1,0 +1,15 @@
+#edit-slug-box {
+	display: none;
+}
+
+.dscp-page-chooser {
+	display: block;
+}
+
+.dscp-field {
+	margin: 1em 0;
+}
+
+.dscp-explain.description {
+	margin-top: 1em;
+}
