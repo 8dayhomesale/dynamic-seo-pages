@@ -26,10 +26,8 @@ class DSCP_Post_Type {
 		add_shortcode( 'dscp_variable', array( $this, 'variable_shortcode' ) );
 		add_action( 'init', array( $this, 'rewrite_urls' ), 100 );
 		add_action( 'template_redirect', array( $this, 'display_template' ) );
-
-
-
 		add_filter( 'get_the_excerpt', array( $this, 'apply_shortcodes_excerpt' ), 10, 2 );
+		add_filter( 'the_title', array( $this, 'apply_shortcodes_title' ), 10, 2 );
 		add_filter( 'wpseo_title', array( $this, 'apply_shortcodes_yoast') );
 		add_filter( 'wpseo_metadesc', array( $this, 'apply_shortcodes_yoast') );
 	}
@@ -44,6 +42,14 @@ class DSCP_Post_Type {
 		}
 
 		return do_shortcode( $excerpt );
+	}
+
+	public function apply_shortcodes_title( $title, $post_id ) {
+		if ( 'dscp_page' !== get_post_type( $post_id ) ) {
+			return $title;
+		}
+
+		return do_shortcode( $title );
 	}
 
 	public function display_template() {
@@ -70,6 +76,7 @@ class DSCP_Post_Type {
 		$wp_query->post = array( $sub_page );
 		$wp_query->query_vars['pagename'] = '';
 		$wp_query->queried_object = $sub_page;
+		$wp_query->is_single = true;
 
 		$wp_the_query = $wp_query;
 	}
@@ -135,15 +142,18 @@ class DSCP_Post_Type {
 			$atts['number'] = (int) $atts['number'];
 		}
 
-		if ( ! empty( $_GET[ 'dscp_variable_' . $atts['number'] ] ) ) {
-			if ( ! empty( $atts['format'] ) ) {
-				if ( 'uppercase-words' === $atts['format'] ) {
-					return esc_html( ucwords( $_GET[ 'dscp_variable_' . $atts['number'] ] ) );
-				} elseif ( 'raw' === $atts['format'] ) {
-					return esc_html( $_GET[ 'dscp_variable_' . $atts['number'] ] );
-				} else {
-					return $atts['default'];
-				}
+		$variable = get_query_var( 'dscp_variable_' . $atts['number'] );
+
+		if ( empty( $variable ) ) {
+			return $atts['default'];
+		}
+
+
+		if ( ! empty( $atts['format'] ) ) {
+			if ( 'uppercase-words' === $atts['format'] ) {
+				return esc_html( ucwords( $variable ) );
+			} elseif ( 'raw' === $atts['format'] ) {
+				return esc_html( $variable );
 			}
 		}
 
@@ -189,16 +199,6 @@ class DSCP_Post_Type {
 		if ( 'dscp_page' == get_post_type() || ( isset( $_GET['post_type'] ) && 'dscp_page' === $_GET['post_type'] ) ) {
 			wp_enqueue_style( 'dscp-admin', plugins_url( 'assets/admin.css', dirname( __FILE__ ) ) );
 		}
-	}
-
-	public function output_base_page_title( $post ) {
-		if ( 'dscp_page' !== get_post_type( $post ) ) {
-			return;
-		}
-		?>
-		<div id="dscp-base-page-content">
-			<h2><span class="dashicons dashicons-arrow-down-alt"></span> <?php esc_html_e( 'Base Page Content', 'dynamic-seo-child-pages' ); ?></h2>
-		<?php
 	}
 
 	public function save_post( $post_id ) {
@@ -283,7 +283,7 @@ class DSCP_Post_Type {
 			'hierarchical' => false,
 			'query_var' => true,
 			'rewrite' => array( 'slug' => 'dscp-placeholder' ),
-			'menu_icon' => 'dashicons-admin-page',
+			'menu_icon' => 'dashicons-format-aside',
 			'supports' => array( 'title', 'editor', 'excerpt', 'author' ),
 		);
 
