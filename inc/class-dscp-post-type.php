@@ -61,7 +61,7 @@ class DSCP_Post_Type {
 			return;
 		}
 
-		global $wp_query, $wp_the_query;
+		global $wp_query, $wp_the_query, $post;
 
 		$sub_page = get_post( $sub_page_id );
 
@@ -77,6 +77,8 @@ class DSCP_Post_Type {
 		$wp_query->query_vars['pagename'] = '';
 		$wp_query->queried_object = $sub_page;
 		$wp_query->is_single = true;
+
+		$post = $sub_page;
 
 		$wp_the_query = $wp_query;
 	}
