@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Dynamic SEO Child Pages 1.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/dynamic-seo-child-pages\n"
-"POT-Creation-Date: 2017-09-11 14:03:36+00:00\n"
+"POT-Creation-Date: 2017-09-12 03:18:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,19 +14,27 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.5.4\n"
 
-#: inc/class-dscp-post-type.php:154
+#: inc/class-dscp-post-type.php:48
+msgid "Test Dynamic SEO Child Page"
+msgstr ""
+
+#: inc/class-dscp-post-type.php:89
+msgid "Test"
+msgstr ""
+
+#: inc/class-dscp-post-type.php:213
 msgid "Base Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:158
+#: inc/class-dscp-post-type.php:217
 msgid "Date"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:170
+#: inc/class-dscp-post-type.php:229
 msgid "None"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:181
+#: inc/class-dscp-post-type.php:240
 msgid ""
 "You can insert a URL variable into your content using the shortcode "
 "<strong>[dscp_variable]</strong>. Variables are set in the &quot;Variable "
@@ -35,61 +43,57 @@ msgid ""
 "<strong>[dscp_variable number=\"2\"]</strong>."
 msgstr ""
 
-#: inc/class-dscp-post-type.php:200
-msgid "Base Page Content"
-msgstr ""
-
-#: inc/class-dscp-post-type.php:234
+#: inc/class-dscp-post-type.php:285
 msgid "Enter dynamic subpage title"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:242
+#: inc/class-dscp-post-type.php:293
 msgid "Dynamic SEO Child Page updated. <a href=\"%s\">View Dynamic SEO Page</a>"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:243
+#: inc/class-dscp-post-type.php:294
 msgid "Custom field updated."
 msgstr ""
 
-#: inc/class-dscp-post-type.php:244
+#: inc/class-dscp-post-type.php:295
 msgid "Custom field deleted."
 msgstr ""
 
-#: inc/class-dscp-post-type.php:245
+#: inc/class-dscp-post-type.php:296
 msgid "Dynamic SEO Child Page updated."
 msgstr ""
 
-#: inc/class-dscp-post-type.php:246
+#: inc/class-dscp-post-type.php:297
 msgid " Dynamic SEO Child Page restored to revision from %s"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:247
+#: inc/class-dscp-post-type.php:298
 msgid ""
 "Dynamic SEO Child Page published. <a href=\"%s\">View Dynamic SEO Child "
 "Page</a>"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:248
+#: inc/class-dscp-post-type.php:299
 msgid "Dynamic SEO Child Page saved."
 msgstr ""
 
-#: inc/class-dscp-post-type.php:249
+#: inc/class-dscp-post-type.php:300
 msgid ""
 "Dynamic SEO Child Page submitted. <a target=\"_blank\" href=\"%s\">Preview "
 "Dynamic SEO Child Page</a>"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:250
+#: inc/class-dscp-post-type.php:301
 msgid ""
 "Dynamic SEO Child Page scheduled for: <strong>%1$s</strong>. <a "
 "target=\"_blank\" href=\"%2$s\">Preview Dynamic SEO Child Page</a>"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:251
+#: inc/class-dscp-post-type.php:302
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:252
+#: inc/class-dscp-post-type.php:303
 msgid ""
 "Dynamic SEO Child Page draft updated. <a target=\"_blank\" "
 "href=\"%s\">Preview Dynamic SEO Child Page</a>"
@@ -99,67 +103,67 @@ msgstr ""
 msgid "Dynamic SEO Child Pages"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:262
+#: inc/class-dscp-post-type.php:313
 msgid "Dynamic SEO Child Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:263
+#: inc/class-dscp-post-type.php:314
 msgid "Add New"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:264
+#: inc/class-dscp-post-type.php:315
 msgid "Add New Dynamic SEO Child Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:265
+#: inc/class-dscp-post-type.php:316
 msgid "Edit Dynamic SEO Child Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:266
+#: inc/class-dscp-post-type.php:317
 msgid "New Dynamic SEO Child Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:267
+#: inc/class-dscp-post-type.php:318
 msgid "All Dynamic SEO Child Pages"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:268
+#: inc/class-dscp-post-type.php:319
 msgid "View Dynamic SEO Child Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:269
+#: inc/class-dscp-post-type.php:320
 msgid "Search Dynamic SEO Child Pages"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:270
+#: inc/class-dscp-post-type.php:321
 msgid "No Dynamic SEO Child Pages found"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:271
+#: inc/class-dscp-post-type.php:322
 msgid "No Dynamic SEO Child Pages found in trash"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:294
+#: inc/class-dscp-post-type.php:345
 msgid "Settings"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:312
+#: inc/class-dscp-post-type.php:363
 msgid "Base Page:"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:313
+#: inc/class-dscp-post-type.php:364
 msgid "Choose a Page"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:314
+#: inc/class-dscp-post-type.php:365
 msgid "Dynamic subpages will be applied to this page."
 msgstr ""
 
-#: inc/class-dscp-post-type.php:318
+#: inc/class-dscp-post-type.php:369
 msgid "Variable URL:"
 msgstr ""
 
-#: inc/class-dscp-post-type.php:320
+#: inc/class-dscp-post-type.php:371
 msgid "The variable URL will be appended to your base page e.g."
 msgstr ""
 

@@ -28,8 +28,39 @@ class DSCP_Post_Type {
 		add_action( 'template_redirect', array( $this, 'display_template' ) );
 		add_filter( 'get_the_excerpt', array( $this, 'apply_shortcodes_excerpt' ), 10, 2 );
 		add_filter( 'the_title', array( $this, 'apply_shortcodes_title' ), 10, 2 );
-		add_filter( 'wpseo_title', array( $this, 'apply_shortcodes_yoast') );
-		add_filter( 'wpseo_metadesc', array( $this, 'apply_shortcodes_yoast') );
+		add_filter( 'wpseo_title', array( $this, 'apply_shortcodes_yoast' ) );
+		add_filter( 'wpseo_metadesc', array( $this, 'apply_shortcodes_yoast' ) );
+		add_filter( 'post_row_actions', array( $this, 'set_post_row_actions' ), 10, 2 );
+		add_action( 'post_submitbox_misc_actions', array( $this, 'test_button' ) );
+	}
+
+	public function test_button() {
+		global $post;
+
+		$test_url = $this->get_test_url( $post->ID );
+
+		if ( empty( $test_url ) ) {
+			return;
+		}
+
+		?>
+		<div class="misc-pub-section">
+			<a href="<?php echo esc_url( $test_url ); ?>" class="button"><?php esc_html_e( 'Test Dynamic SEO Child Page', 'dynamic-seo-child-pages' ); ?></a>
+		</div>
+		<?php
+	}
+
+	public function get_test_url( $post_id ) {
+		$base_page_id = get_post_meta( $post_id, 'dscp_base_page', true );
+		$variable_url = get_post_meta( $post_id, 'dscp_variable_url', true );
+
+		if ( ! empty( $base_page_id ) && ! empty( $variable_url ) ) {
+			$variable_url = preg_replace( '#%variable%#is', 'test-variable', $variable_url );
+
+			return untrailingslashit( get_permalink( $base_page_id ) ) . '/' . trim( $variable_url, '/' );
+		}
+
+		return '';
 	}
 
 	public function apply_shortcodes_yoast( $text ) {
@@ -42,6 +73,23 @@ class DSCP_Post_Type {
 		}
 
 		return do_shortcode( $excerpt );
+	}
+
+	public function set_post_row_actions( $actions, $post ) {
+		if ( 'dscp_page' !== get_post_type( $post ) ) {
+			return $actions;
+		}
+
+		unset( $actions['view'] );
+		unset( $actions['inline hide-if-no-js'] );
+
+		$test_url = $this->get_test_url( $post->ID );
+
+		if ( ! empty( $test_url ) ) {
+			$actions['test'] = '<a href="' . esc_url( $test_url ) . '">' . esc_html__( 'Test', 'dynamic-seo-child-pages' ) . '</a>';
+		}
+
+		return $actions;
 	}
 
 	public function apply_shortcodes_title( $title, $post_id ) {
@@ -83,7 +131,7 @@ class DSCP_Post_Type {
 		$wp_the_query = $wp_query;
 	}
 
-	public function rewrite_urls() {
+	public function rewrite_urls( $hard ) {
 		$sub_pages = get_transient( 'dscp_sub_pages' );
 
 		add_rewrite_tag( '%dscp_variable_1%', '([^/]+)' );
@@ -93,7 +141,7 @@ class DSCP_Post_Type {
 		add_rewrite_tag( '%dscp_variable_5%', '([^/]+)' );
 		add_rewrite_tag( '%sub_page_id%', '([0-9]+)' );
 
-		if ( false === $sub_pages ) {
+		if ( false === $sub_pages || $hard ) {
 			$sub_pages_query = new WP_Query( array(
 				'post_type' => 'dscp_page',
 				'post_status' => 'publish',
@@ -104,7 +152,7 @@ class DSCP_Post_Type {
 
 			$sub_pages = $sub_pages_query->posts;
 
-			// set_transient( 'dscp_sub_pages', $sub_pages, DAY_IN_SECONDS );
+			set_transient( 'dscp_sub_pages', $sub_pages, DAY_IN_SECONDS );
 		}
 
 		foreach ( $sub_pages as $sub_page_id ) {
@@ -150,10 +198,9 @@ class DSCP_Post_Type {
 			return $atts['default'];
 		}
 
-
 		if ( ! empty( $atts['format'] ) ) {
 			if ( 'uppercase-words' === $atts['format'] ) {
-				return esc_html( ucwords( $variable ) );
+				return esc_html( ucwords( str_replace( '-', ' ', $variable ) ) );
 			} elseif ( 'raw' === $atts['format'] ) {
 				return esc_html( $variable );
 			}
@@ -218,13 +265,15 @@ class DSCP_Post_Type {
 			update_post_meta( $post_id, 'dscp_variable_url', sanitize_text_field( $_POST['dscp_variable_url'] ) );
 		}
 
-		if ( empty( $_POST['dscp_base_page'] ) ) {
+		if ( empty( $_POST['dscp_base_page'] ) || -1 == $_POST['dscp_base_page'] ) {
 			delete_post_meta( $post_id, 'dscp_base_page' );
 		} else {
 			update_post_meta( $post_id, 'dscp_base_page', absint( $_POST['dscp_base_page'] ) );
 		}
 
-		$this->rewrite_urls();
+		delete_transient( 'dscp_sub_pages' );
+
+		$this->rewrite_urls( true );
 
 		flush_rewrite_rules( false );
 	}

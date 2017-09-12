@@ -13,3 +13,11 @@
 .dscp-explain.description {
 	margin-top: 1em;
 }
+
+#wp-admin-bar-view {
+	display: none;
+}
+
+#preview-action {
+	display: none;
+}
