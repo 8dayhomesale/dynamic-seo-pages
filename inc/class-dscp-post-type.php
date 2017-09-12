@@ -131,7 +131,7 @@ class DSCP_Post_Type {
 		$wp_the_query = $wp_query;
 	}
 
-	public function rewrite_urls( $hard ) {
+	public function rewrite_urls( $hard = false ) {
 		$sub_pages = get_transient( 'dscp_sub_pages' );
 
 		add_rewrite_tag( '%dscp_variable_1%', '([^/]+)' );
@@ -270,8 +270,6 @@ class DSCP_Post_Type {
 		} else {
 			update_post_meta( $post_id, 'dscp_base_page', absint( $_POST['dscp_base_page'] ) );
 		}
-
-		delete_transient( 'dscp_sub_pages' );
 
 		$this->rewrite_urls( true );
 
