@@ -18,3 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'DSCP_VERSION', '1.0' );
 
 require_once( dirname( __FILE__ ) . '/inc/class-dscp-post-type.php' );
+
+function dscp_setup_yoast_sitemap( $providers ) {
+	require_once dirname( __FILE__ ) . '/inc/class-dscp-sitemap.php';
+	$providers[] = new DSCP_Sitemap_Provider();
+
+	return $providers;
+}
+
+add_filter( 'wpseo_sitemaps_providers', 'dscp_setup_yoast_sitemap' );

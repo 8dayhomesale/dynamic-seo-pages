@@ -271,6 +271,26 @@ class DSCP_Post_Type {
 			update_post_meta( $post_id, 'dscp_base_page', absint( $_POST['dscp_base_page'] ) );
 		}
 
+		if ( empty( $_POST['dscp_sitemap_pages'] ) ) {
+			delete_post_meta( $post_id, 'dscp_sitemap_pages' );
+		} else {
+			$pages = trim( $_POST['dscp_sitemap_pages'] );
+
+			$pages = explode( "\n", $pages );
+			$final_pages = array();
+
+			foreach ( $pages as $page ) {
+				$page = preg_replace( '#[\s]#s', '', $page );
+				$page = trim( $page, '/' );
+
+				if ( ! empty( $page ) ) {
+					$final_pages[] = '/' . $page;
+				}
+			}
+
+			update_post_meta( $post_id, 'dscp_sitemap_pages', $final_pages );
+		}
+
 		$this->rewrite_urls( true );
 
 		flush_rewrite_rules( false );
@@ -355,6 +375,14 @@ class DSCP_Post_Type {
 			$base_page = 0;
 		}
 
+		$sitemap_pages = get_post_meta( $post->ID, 'dscp_sitemap_pages', true );
+
+		if ( empty( $sitemap_pages ) ) {
+			$sitemap_pages = '';
+		} else {
+			$sitemap_pages = implode( $sitemap_pages, "\n" );
+		}
+
 		wp_nonce_field( 'dscp_settings_action', 'dscp_settings_nonce' );
 		?>
 			<div class="dscp-field">
@@ -368,6 +396,16 @@ class DSCP_Post_Type {
 				<input class="widefat" type="text" id="dscp_variable_url" name="dscp_variable_url" value="<?php echo esc_attr( $variable_url ); ?>" />
 				<p class="description"><?php esc_html_e( 'The variable URL will be appended to your base page e.g.', 'dynamic-seo-child-pages' ); ?> <strong><?php echo esc_url( home_url( 'locations/%variable%/' ) ); ?></strong></p>
 			</div>
+
+			<?php if ( defined( 'WPSEO_VERSION' ) ) : ?>
+				<div class="dscp-field">
+					<label for="dscp_sitemap_pages">
+						<?php esc_html_e( 'Yoast Sitemap URLs to Add:', 'dynamic-seo-child-pages' ); ?>
+					</label>
+					<textarea id="dscp_sitemap_pages" name="dscp_sitemap_pages" class="widefat"><?php echo esc_html( $sitemap_pages ); ?></textarea>
+					<p class="description"><?php esc_html_e( 'Dynamic URLs needed to be explicitly listed in your sitemap. Add URLs relative to the base page e.g. "/washington-dc". One URL per line.', 'dynamic-seo-child-pages' ); ?></p>
+				</div>
+			<?php endif; ?>
 		<?php
 	}
 
