@@ -34,5 +34,9 @@ Here is how you can get started with Dynamic SEO Child Pages by [8 Day Home Sale
 
 == Changelog ==
 
+= 1.1 =
+* Support Yoast sitemaps
+* Prettify post type UI with a test button and example url
+
 = 1.0 =
 * Initial plugin release by [8 Day Home Sale](https://8dayhomesale.com)

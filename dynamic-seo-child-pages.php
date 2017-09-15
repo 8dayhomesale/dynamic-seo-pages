@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Dynamic SEO Child Pages
  * Description: Generate a ton of SEO content instantly with dynamic child pages.
- * Version:     1.0
+ * Version:     1.1
  * Author:      8 Day Home Sale
  * Author URI:  https://8dayhomesale.com
  * License:     GPLv2 or later
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'DSCP_VERSION', '1.0' );
+define( 'DSCP_VERSION', '1.1' );
 
 require_once( dirname( __FILE__ ) . '/inc/class-dscp-post-type.php' );
 
