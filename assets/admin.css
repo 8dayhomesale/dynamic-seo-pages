@@ -25,3 +25,13 @@
 #dscp_sitemap_pages {
 	height: 200px;
 }
+
+#dscp_variable_url {
+	width: 250px;
+	display: inline-block;
+}
+
+.dscp-field .url {
+	font-weight: bold;
+	display: inline-block;
+}

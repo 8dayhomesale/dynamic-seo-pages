@@ -392,7 +392,14 @@ class DSCP_Post_Type {
 			</div>
 
 			<div class="dscp-field">
-				<label for="dscp_variable_url"><?php esc_html_e( 'Variable URL:', 'dynamic-seo-child-pages' ); ?></label>
+				<label for="dscp_variable_url"><?php esc_html_e( 'Variable URL:', 'dynamic-seo-child-pages' ); ?></label><br>
+				<span class="url">
+					<?php if ( ! empty( $base_page ) ) : ?>
+						<?php echo esc_url( untrailingslashit( get_permalink( $base_page ) ) ); ?>
+					<?php else : ?>
+						<?php echo esc_url( untrailingslashit( home_url( '...' ) ) ); ?>
+					<?php endif; ?>
+				</span>
 				<input class="widefat" type="text" id="dscp_variable_url" name="dscp_variable_url" value="<?php echo esc_attr( $variable_url ); ?>" />
 				<p class="description"><?php esc_html_e( 'The variable URL will be appended to your base page e.g.', 'dynamic-seo-child-pages' ); ?> <strong><?php echo esc_url( home_url( 'locations/%variable%/' ) ); ?></strong></p>
 			</div>
